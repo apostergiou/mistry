@@ -65,4 +65,15 @@ func TestJobID(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
+	ignParams := params
+	ignParams["_production"] = "ignored"
+
+	// check that params prepended with _ are ignored for ID creation
+	j7, err := NewJob(project, ignParams, group, testcfg)
+	if err != nil {
+		t.Fatal(err)
+	}
+	assertEq(j6.ID, j7.ID, t)
+
 }
